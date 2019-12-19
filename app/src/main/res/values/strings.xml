@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">私は№1</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">私は№1</string>
+    <string name="nav_header_subtitle">Ver:1.0</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">設定</string>
+
+    <string name="menu_pixiv">PIXIV ID查詢工具</string>
+    <string name="menu_nhentai">nhentai 查詢工具</string>
+    <string name="menu_niconico">NicoNico 查詢工具</string>
+    <string name="nav_settings">設定</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+</resources>

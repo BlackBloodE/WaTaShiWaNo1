@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_pixiv">
+
+    <fragment
+        android:id="@+id/nav_pixiv"
+        android:name="com.BlackBloodE.WaTaShiWaNo1.ui.pixiv.PixivFragment"
+        android:label="@string/menu_pixiv"
+        tools:layout="@layout/fragment_pixiv" />
+
+    <fragment
+        android:id="@+id/nav_nhentai"
+        android:name="com.BlackBloodE.WaTaShiWaNo1.ui.nhentai.NhentaiFragment"
+        android:label="@string/menu_nhentai"
+        tools:layout="@layout/fragment_nhentai" />
+
+    <fragment
+        android:id="@+id/nav_niconico"
+        android:name="com.BlackBloodE.WaTaShiWaNo1.ui.niconico.NiconicoFragment"
+        android:label="@string/menu_niconico"
+        tools:layout="@layout/fragment_niconico" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.BlackBloodE.WaTaShiWaNo1.ui.settings.SettingsFragment"
+        android:label="@string/nav_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.BlackBloodE.WaTaShiWaNo1.ui.share.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="com.BlackBloodE.WaTaShiWaNo1.ui.send.SendFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_send" />
+</navigation>

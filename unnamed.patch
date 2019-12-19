@@ -1,0 +1,89 @@
+Index: app/src/main/java/com/example/navigationdrawertest2/ui/nhentai/Manga.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/navigationdrawertest2/ui/nhentai/Manga.kt	(revision c242c4acfeaea7ed2b15fcd946d71da31850d0ea)
++++ app/src/main/java/com/example/navigationdrawertest2/ui/nhentai/Manga.kt	(date 1575549718667)
+@@ -12,10 +12,12 @@
+ import com.example.navigationdrawertest2.R
+ import kotlinx.android.synthetic.main.activity_manga.*
+ import kotlinx.android.synthetic.main.fragment_manga.view.*
++import java.lang.Exception
+ 
+ 
+ var link : String = ""
+ var finP : Int = 1
++var isDisable : Boolean = true
+ 
+ class Manga : AppCompatActivity() {
+     // 保存FragmentTouchListener接口的列表
+@@ -49,7 +51,12 @@
+ 
+     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+         for (listener in onTouchListeners) {
+-            listener.onTouch(ev)
++            try {
++                listener.onTouch(ev)
++            }catch (e:Exception){
++
++            }
++
+         }
+         return super.dispatchTouchEvent(ev)
+     }
+@@ -89,6 +96,7 @@
+         v.WV.getSettings().setBuiltInZoomControls (true) //设置内置的缩放控件。若为false，则该WebView不可缩放
+         v.WV.settings.setDisplayZoomControls(false) //隐藏原生的缩放控件
+ 
++        isDisable = true
+         val VP: ViewPager = activity!!.findViewById(R.id.viewPager)
+ 
+         val simpleOnGestureListener: SimpleOnGestureListener = object : SimpleOnGestureListener() {
+@@ -106,13 +114,21 @@
+                 activity?.getWindowManager()?.getDefaultDisplay()?.getMetrics(metrics)
+                 var MX = metrics.widthPixels
+                 var MY = metrics.heightPixels
+-                if (e?.x!! < metrics.widthPixels/2){
+-                    println("上一頁")
+-                    VP.setCurrentItem(index-1)
+-                }
+-                if (e?.x!! > metrics.widthPixels/2){
+-                    println("下一頁")
+-                    VP.setCurrentItem(index+1)
++                if (isDisable){
++                    if (e != null) {
++                        when(e.x){
++                            in 0..metrics.widthPixels/2 -> {
++                                println("上一頁")
++                                isDisable = false
++                                VP.setCurrentItem(index-1)
++                            }
++                            in metrics.widthPixels/2..metrics.widthPixels ->{
++                                println("下一頁")
++                                isDisable = false
++                                VP.setCurrentItem(index+1)
++                            }
++                        }
++                    }
+                 }
+                 return false
+             }
+@@ -130,6 +146,17 @@
+         return v
+     }
+ 
++    override fun onDestroy() {
++        isDisable = false
++        val myOnTouchListener: Manga.MyOnTouchListener = object : Manga.MyOnTouchListener {
++            override fun onTouch(ev: MotionEvent?): Boolean {
++                return false
++            }
++        }
++        (activity as Manga?)?.unregisterMyOnTouchListener(myOnTouchListener)
++        super.onDestroy()
++    }
++
+ }
+ 
+ 
