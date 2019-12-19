@@ -1,5 +1,6 @@
 ext {
     var = 'com.BlackBloodE.WaTaShiWaNo1'
+    var1 = 'WaTaShiWaNo1'
 }
 apply plugin: 'com.android.application'
 
@@ -11,7 +12,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId var
+        applicationId 'com.BlackBloodE.WaTaShiWaNo1'
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 10
