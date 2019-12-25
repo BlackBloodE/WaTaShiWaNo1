@@ -81,6 +81,7 @@ class PixivFragment : Fragment(), View.OnClickListener {
                     }else{
                         link = "https://www.pixiv.net/member.php?id="+editText.text
                         textView3.setText(link)
+                        btnOPEN.isVisible = true
                     }
                 }else{
                     Toast.makeText(context,"請選擇搜尋目標",
