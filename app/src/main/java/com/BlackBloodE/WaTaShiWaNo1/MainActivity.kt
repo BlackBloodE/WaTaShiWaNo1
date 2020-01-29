@@ -1,5 +1,8 @@
 package com.BlackBloodE.WaTaShiWaNo1
 
+import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -22,6 +25,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.BlackBloodE.WaTaShiWaNo1.R.id.nav_view
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -63,9 +67,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        //設置string.xml中的文字(獲取版本號)
+        val res = resources
+        val text = String.format(res.getString(R.string.nav_header_subtitle),getLocalVersion(this))
         //開啟app後自動開啟側邊抽屜
         Handler().postDelayed({
             drawerLayout.openDrawer(GravityCompat.START)
+            tvVer.text = text
         },1000)
     }
 
@@ -112,5 +120,21 @@ class MainActivity : AppCompatActivity() {
         else {
             // 什麼都不用寫
         }
+    }
+    /**
+     * 获取本地软件版本名
+     */
+    fun getLocalVersion(ctx: Context): String {
+        var localVersion = ""
+        try {
+            val packageInfo: PackageInfo = ctx.getApplicationContext()
+                .getPackageManager()
+                .getPackageInfo(ctx.getPackageName(), 0)
+            localVersion = packageInfo.versionName
+            //LogUtil.d("本软件的版本号：$localVersion")
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return localVersion
     }
 }

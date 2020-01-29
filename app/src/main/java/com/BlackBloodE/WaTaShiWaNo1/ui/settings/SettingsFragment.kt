@@ -58,11 +58,8 @@ class SettingsFragment : Fragment() {
     private val onClickListView =
         OnItemClickListener { parent, view, position, id ->
             // Toast 快顯功能 第三個參數 Toast.LENGTH_SHORT 2秒  LENGTH_LONG 5秒
-            Toast.makeText(
-                context,
-                "點選第 " + (position + 1) + " 個 \n內容：" + str[position],
-                Toast.LENGTH_SHORT
-            ).show()
+            //Toast.makeText(context, "點選第 " + (position + 1) + " 個 \n內容：" + str[position], Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
         }
     /**
      * 获取本地软件版本名
