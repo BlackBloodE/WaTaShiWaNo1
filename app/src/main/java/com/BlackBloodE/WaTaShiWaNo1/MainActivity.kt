@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
             drawerLayout.openDrawer(GravityCompat.START)
             tvVer.text = text
-        },1000)
+        },1500)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

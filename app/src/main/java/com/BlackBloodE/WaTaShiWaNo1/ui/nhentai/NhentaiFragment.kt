@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.BlackBloodE.WaTaShiWaNo1.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.fragment_nhentai.*
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
@@ -29,6 +32,7 @@ class NhentaiFragment : Fragment(), View.OnClickListener {
     private lateinit var textViewTitlePsge : TextView
     private lateinit var textViewInfo : TextView
     private lateinit var ll : LinearLayout
+    private lateinit var adView : AdView
     private var inFo = ""
     private var link : String = ""
     private var CoverLink = ""
@@ -60,6 +64,11 @@ class NhentaiFragment : Fragment(), View.OnClickListener {
         textViewTitlePsge = root.findViewById(R.id.textViewTitlePsge)
         textViewInfo = root.findViewById(R.id.textViewInfo)
         ll = root.findViewById(R.id.ll)
+        // AdMob 初始化
+        MobileAds.initialize(context, getString(R.string.admob_app_id))
+        // 橫幅廣告
+        adView = root.findViewById(R.id.adView)
+        adView.loadAd(AdRequest.Builder().build())
         return root
     }
 

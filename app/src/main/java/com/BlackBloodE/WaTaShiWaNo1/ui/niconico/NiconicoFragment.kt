@@ -17,6 +17,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.BlackBloodE.WaTaShiWaNo1.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
 class NiconicoFragment : Fragment(), View.OnClickListener {
 
@@ -25,6 +28,7 @@ class NiconicoFragment : Fragment(), View.OnClickListener {
     private lateinit var btnOk : Button
     private lateinit var btnOpen : Button
     private lateinit var textView4 : TextView
+    private lateinit var adView : AdView
     private var link : String = ""
 
     override fun onCreateView(
@@ -42,6 +46,11 @@ class NiconicoFragment : Fragment(), View.OnClickListener {
         btnOpen.setOnClickListener(this)
         textView4 = root.findViewById(R.id.textView4)
         textView4.setOnClickListener(this)
+        // AdMob 初始化
+        MobileAds.initialize(context, getString(R.string.admob_app_id))
+        // 橫幅廣告
+        adView = root.findViewById(R.id.adView)
+        adView.loadAd(AdRequest.Builder().build())
         return root
     }
     override fun onClick(v: View?) {

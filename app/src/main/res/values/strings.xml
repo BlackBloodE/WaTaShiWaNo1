@@ -13,4 +13,9 @@
     <string name="nav_settings">設定</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <!--  adMob app id  -->
+    <string name="admob_app_id">ca-app-pub-4188651974888749~8381179362</string>
+    <!-- 橫幅 -->
+    <string name="banner_ad_unit_id">ca-app-pub-4188651974888749/5441328868</string>
 </resources>

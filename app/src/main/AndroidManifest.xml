@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Material"
         android:configChanges="orientation|keyboardHidden|screenSize">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id"/>
         <activity android:name="com.BlackBloodE.WaTaShiWaNo1.ui.nhentai.Manga"
             android:theme="@style/Material.FullScreen"
             android:screenOrientation="portrait"></activity>

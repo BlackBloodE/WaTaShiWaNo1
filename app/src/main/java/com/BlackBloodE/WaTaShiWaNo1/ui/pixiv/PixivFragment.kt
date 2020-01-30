@@ -14,6 +14,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.BlackBloodE.WaTaShiWaNo1.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.fragment_pixiv.*
 
 class PixivFragment : Fragment(), View.OnClickListener {
 
@@ -26,6 +30,7 @@ class PixivFragment : Fragment(), View.OnClickListener {
     private lateinit var rBWork : RadioButton
     private lateinit var rBWorker : RadioButton
     private lateinit var RG : RadioGroup
+    private lateinit var adView : AdView
     private var link : String = ""
     private var choose : String = ""
 
@@ -58,6 +63,12 @@ class PixivFragment : Fragment(), View.OnClickListener {
                 Toast.makeText(context," 搜尋切換 : ${radio.text}",
                     Toast.LENGTH_SHORT).show()
             })
+        // AdMob 初始化
+        MobileAds.initialize(context, getString(R.string.admob_app_id))
+        // 橫幅廣告
+        adView = root.findViewById(R.id.adView)
+        adView.loadAd(AdRequest.Builder().build())
+
         return root
     }
     override fun onClick(v: View?) {
