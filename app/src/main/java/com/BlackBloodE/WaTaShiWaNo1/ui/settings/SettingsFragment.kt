@@ -1,8 +1,10 @@
 package com.BlackBloodE.WaTaShiWaNo1.ui.settings
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,7 +61,25 @@ class SettingsFragment : Fragment() {
         OnItemClickListener { parent, view, position, id ->
             // Toast 快顯功能 第三個參數 Toast.LENGTH_SHORT 2秒  LENGTH_LONG 5秒
             //Toast.makeText(context, "點選第 " + (position + 1) + " 個 \n內容：" + str[position], Toast.LENGTH_SHORT).show()
-            Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+            when (position){
+                0 ->{
+                    Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+                }
+                1 ->{
+                    Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+                }
+                2 ->{
+                    val fileName = Uri.parse("https://github.com/BlackBloodE/WaTaShiWaNo1/releases/latest")
+                    val intent = Intent()
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.action = Intent.ACTION_VIEW
+                    intent.setData(fileName)
+                    startActivity(intent)
+                }
+                3 ->{
+                    Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     /**
      * 获取本地软件版本名
