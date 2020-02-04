@@ -32,7 +32,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var listView: ListView
     private lateinit var listAdapter: ListAdapter
-    var str = arrayListOf<String>("回報問題","斗內", "檢查更新", "版本號 : v")
+    var str = arrayListOf<String>("問題回報","贊助我", "消除廣告" , "檢查更新", "版本號 : ")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,7 @@ class SettingsFragment : Fragment() {
 //            textView.text = it
 //        })
 
-        str[3] = str[3]+getLocalVersion(context!!).toString()
+        str[4] = str[4]+LocalVersion().getLocalVersion(context!!)
 
         listView = root.findViewById(R.id.listView)
         listAdapter = ArrayAdapter<String>(
@@ -70,65 +70,44 @@ class SettingsFragment : Fragment() {
             //Toast.makeText(context, "點選第 " + (position + 1) + " 個 \n內容：" + str[position], Toast.LENGTH_SHORT).show()
             when (position){
                 0 ->{
-                    Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+                    openWebside("https://forms.gle/5MXvyfaycNLNvq517")//開啟問題回報表單
                 }
                 1 ->{
-                    Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+                    openWebside("https://www.buymeacoffee.com/gbwOGMA")//開啟贊助我連結
                 }
                 2 ->{
+
+                }
+                3 ->{
                     Thread{
                         var netVer = getNewVer()
                         var strUp = "需要更新!!"
                         var strNUP = "無須更新"
                         var ADt = ""
-                        if (getLocalVersion(context!!)!=netVer){
+                        if (LocalVersion().getLocalVersion(context!!)!=netVer){
                             ADt = strUp
                         }else{
                             ADt = strNUP
                         }
                         Looper.prepare()
                         AlertDialog.Builder(context)
-                            .setMessage("目前版本:"+getLocalVersion(context!!)+"\n"+"最新版本:"+netVer)
+                            .setMessage("目前版本:"+LocalVersion().getLocalVersion(context!!)+"\n"+"最新版本:"+netVer)
                             .setTitle("檢查更新..."+ADt)
                             .setPositiveButton("取得最新版本", DialogInterface.OnClickListener { _, _ ->
-                                val fileName = Uri.parse("https://github.com/BlackBloodE/WaTaShiWaNo1/releases/latest")
-                                val intent = Intent()
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                intent.action = Intent.ACTION_VIEW
-                                intent.setData(fileName)
-                                startActivity(intent)
+                                openWebside("https://github.com/BlackBloodE/WaTaShiWaNo1/releases/latest")
                             })
                             .setNeutralButton("取消", null)
                             .create()
                             .show()
                         Looper.loop()
                     }.start()
-//                    val fileName = Uri.parse("https://github.com/BlackBloodE/WaTaShiWaNo1/releases/latest")
-//                    val intent = Intent()
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    intent.action = Intent.ACTION_VIEW
-//                    intent.setData(fileName)
-//                    startActivity(intent)
                 }
-                3 ->{
-                    Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
+                4 ->{
+                    //Toast.makeText(context, "您點選了 " + str[position] + " 但此功能尚未實現，不好意思", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-    //獲取版本號
-    fun getLocalVersion(ctx: Context): String {
-        var localVersion = ""
-        try {
-            val packageInfo: PackageInfo = ctx.getApplicationContext()
-                .getPackageManager()
-                .getPackageInfo(ctx.getPackageName(), 0)
-            localVersion = packageInfo.versionName
-            //LogUtil.d("本软件的版本号：$localVersion")
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-        return localVersion
-    }
+
     //解析GitHub Release的json
     fun getNewVer() : String {
         var netVer = ""
@@ -148,5 +127,30 @@ class SettingsFragment : Fragment() {
             e.printStackTrace()
         }
         return jsonObject
+    }
+    //開啟外部連結用
+    fun openWebside(url: String){
+        val fileName = Uri.parse(url)
+        val intent = Intent()
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.action = Intent.ACTION_VIEW
+        intent.setData(fileName)
+        startActivity(intent)
+    }
+}
+class LocalVersion {
+    //獲取版本號
+    fun getLocalVersion(ctx: Context): String {
+        var localVersion = ""
+        try {
+            val packageInfo: PackageInfo = ctx.getApplicationContext()
+                .getPackageManager()
+                .getPackageInfo(ctx.getPackageName(), 0)
+            localVersion = packageInfo.versionName
+            //LogUtil.d("本软件的版本号：$localVersion")
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return localVersion
     }
 }
