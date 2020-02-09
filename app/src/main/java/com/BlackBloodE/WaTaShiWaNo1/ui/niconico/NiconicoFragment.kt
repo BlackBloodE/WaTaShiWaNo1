@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.BlackBloodE.WaTaShiWaNo1.GlobalVariable
 import com.BlackBloodE.WaTaShiWaNo1.R
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -30,6 +31,9 @@ class NiconicoFragment : Fragment(), View.OnClickListener {
     private lateinit var textView4 : TextView
     private lateinit var adView : AdView
     private var link : String = ""
+
+    //建立共用變數類別
+    val gv = GlobalVariable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +55,7 @@ class NiconicoFragment : Fragment(), View.OnClickListener {
         // 橫幅廣告
         adView = root.findViewById(R.id.adView)
         adView.loadAd(AdRequest.Builder().build())
+        adView.isVisible = gv.getAdSwitch()
         return root
     }
     override fun onClick(v: View?) {

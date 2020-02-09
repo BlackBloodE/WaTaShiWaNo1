@@ -13,11 +13,11 @@ import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.BlackBloodE.WaTaShiWaNo1.GlobalVariable
 import com.BlackBloodE.WaTaShiWaNo1.R
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import kotlinx.android.synthetic.main.fragment_pixiv.*
 
 class PixivFragment : Fragment(), View.OnClickListener {
 
@@ -33,6 +33,9 @@ class PixivFragment : Fragment(), View.OnClickListener {
     private lateinit var adView : AdView
     private var link : String = ""
     private var choose : String = ""
+
+    //建立共用變數類別
+    val gv = GlobalVariable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +71,7 @@ class PixivFragment : Fragment(), View.OnClickListener {
         // 橫幅廣告
         adView = root.findViewById(R.id.adView)
         adView.loadAd(AdRequest.Builder().build())
+        adView.isVisible = gv.getAdSwitch()
 
         return root
     }

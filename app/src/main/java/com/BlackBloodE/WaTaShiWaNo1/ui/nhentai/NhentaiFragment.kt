@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.BlackBloodE.WaTaShiWaNo1.GlobalVariable
 import com.BlackBloodE.WaTaShiWaNo1.R
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -39,6 +41,9 @@ class NhentaiFragment : Fragment(), View.OnClickListener {
     private lateinit var html : Document
     private var intPages : Int = 0
     var num = ""
+
+    //建立共用變數類別
+    val gv = GlobalVariable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +74,7 @@ class NhentaiFragment : Fragment(), View.OnClickListener {
         // 橫幅廣告
         adView = root.findViewById(R.id.adView)
         adView.loadAd(AdRequest.Builder().build())
+        adView.isVisible = gv.getAdSwitch()
         return root
     }
 

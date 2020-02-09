@@ -1,5 +1,6 @@
 package com.BlackBloodE.WaTaShiWaNo1.ui.settings
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -17,12 +18,19 @@ import android.widget.ArrayAdapter
 import android.widget.ListAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.BlackBloodE.WaTaShiWaNo1.GlobalVariable
 import com.BlackBloodE.WaTaShiWaNo1.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import org.json.JSONException
 import org.json.JSONObject
-import org.jsoup.parser.Parser
 import java.net.URL
 
 
@@ -33,6 +41,11 @@ class SettingsFragment : Fragment() {
     private lateinit var listView: ListView
     private lateinit var listAdapter: ListAdapter
     var str = arrayListOf<String>("問題回報","贊助我", "消除廣告" , "檢查更新", "版本號 : ")
+
+    //建立共用變數類別
+    val gv = GlobalVariable()
+
+    private lateinit var rewardedAd: RewardedAd
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +70,18 @@ class SettingsFragment : Fragment() {
         )
         listView.setAdapter(listAdapter)
         listView.setOnItemClickListener(onClickListView)
+        // AdMob 初始化
+        MobileAds.initialize(context, getString(R.string.admob_app_id))
+        rewardedAd = RewardedAd(context, getString(R.string.rewardedAd_id))
+        val adLoadCallback = object: RewardedAdLoadCallback() {
+            override fun onRewardedAdLoaded() {
+                // Ad successfully loaded.
+            }
+            override fun onRewardedAdFailedToLoad(errorCode: Int) {
+                // Ad failed to load.
+            }
+        }
+        rewardedAd.loadAd(AdRequest.Builder().build(), adLoadCallback)
 
         return root
     }
@@ -76,6 +101,36 @@ class SettingsFragment : Fragment() {
                     openWebside("https://www.buymeacoffee.com/gbwOGMA")//開啟贊助我連結
                 }
                 2 ->{
+                    AlertDialog.Builder(context)
+                        .setMessage("觀看一小段廣告以消除此次使用時間的廣告視窗")
+                        .setTitle("消除廣告")
+                        .setPositiveButton("觀看", DialogInterface.OnClickListener { _, _ ->
+                            if (rewardedAd.isLoaded) {
+                                val adCallback = object: RewardedAdCallback() {
+                                    override fun onRewardedAdOpened() {
+                                        // Ad opened.
+                                    }
+                                    override fun onRewardedAdClosed() {
+                                        // Ad closed.
+                                    }
+                                    override fun onUserEarnedReward(@NonNull reward: RewardItem) {
+                                        gv.setAdSwitch(false)
+                                        Toast.makeText(context,"感謝您的支持，下次開啟應用前都不會有廣告出現",Toast.LENGTH_LONG).show()
+                                    }
+                                    override fun onRewardedAdFailedToShow(errorCode: Int) {
+                                        // Ad failed to display.
+                                    }
+                                }
+                                rewardedAd.show(context as Activity?, adCallback)
+                            }
+                            else {
+                                Toast.makeText(context,"不好意思廣告載入失敗，請重新進入「設定」頁面",Toast.LENGTH_LONG).show()
+                                println("The rewarded ad wasn't loaded yet.")
+                            }
+                        })
+                        .setNeutralButton("取消", null)
+                        .create()
+                        .show()
 
                 }
                 3 ->{

@@ -15,7 +15,9 @@
     <string name="menu_send">Send</string>
 
     <!--  adMob app id  -->
-    <string name="admob_app_id">ca-app-pub-4188651974888749~8381179362</string>
+    <string name="admob_app_id">ca-app-pub-4188651974888749~3891076491</string>
     <!-- 橫幅 -->
     <string name="banner_ad_unit_id">ca-app-pub-4188651974888749/5441328868</string>
+    <!-- 獎勵式廣告 -->
+    <string name="rewardedAd_id">ca-app-pub-4188651974888749/6734879607</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.BlackBloodE.WaTaShiWaNo1
 
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -136,5 +137,15 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return localVersion
+    }
+}
+private var AdSwitch : Boolean = true
+class GlobalVariable : Application() {
+
+    fun setAdSwitch(swi : Boolean){
+        AdSwitch = swi
+    }
+    fun getAdSwitch() : Boolean{
+        return AdSwitch
     }
 }
