@@ -15,8 +15,8 @@ android {
         applicationId 'com.BlackBloodE.WaTaShiWaNo1'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 15
-        versionName "1.5"
+        versionCode 16
+        versionName "1.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
